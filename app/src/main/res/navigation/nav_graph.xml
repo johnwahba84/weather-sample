@@ -13,24 +13,24 @@
 
         <action
             android:id="@+id/action_main_to_choose_cities"
-            app:destination="@id/choose_cities" />
+            app:destination="@id/weather" />
 
         <action
             android:id="@+id/action_main_to_current_city"
-            app:destination="@id/current_city" />
+            app:destination="@id/forecast" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/choose_cities"
-        android:name="com.sample.openweathermap.ui.choosecities.ChooseCitiesFragment"
-        android:label="@string/choose_cities_screen_title"
-        tools:layout="@layout/choose_cities_fragment" />
+        android:id="@+id/weather"
+        android:name="com.sample.openweathermap.ui.weather.WeatherFragment"
+        android:label="@string/weather_screen_title"
+        tools:layout="@layout/weather_fragment" />
 
     <fragment
-        android:id="@+id/current_city"
-        android:name="com.sample.openweathermap.ui.currentcity.CurrentCityFragment"
-        android:label="@string/current_city_screen_title"
-        tools:layout="@layout/current_city_fragment" />
+        android:id="@+id/forecast"
+        android:name="com.sample.openweathermap.ui.forcast.ForecastFragment"
+        android:label="@string/forecast_screen_title"
+        tools:layout="@layout/forecast_fragment" />
 
 </navigation>

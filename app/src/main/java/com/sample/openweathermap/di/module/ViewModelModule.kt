@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.sample.openweathermap.di.keys.ViewModelKey
 import com.sample.openweathermap.ui.MainViewModel
-import com.sample.openweathermap.ui.choosecities.ChooseCitiesViewModel
-import com.sample.openweathermap.ui.currentcity.CurrentCityViewModel
+import com.sample.openweathermap.ui.weather.WeatherViewModel
+import com.sample.openweathermap.ui.forcast.ForecastViewModel
 import com.sample.openweathermap.ui.home.HomeViewModel
 import com.sample.openweathermap.viewmodel.WeatherViewModelFactory
 import dagger.Binds
@@ -27,13 +27,13 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ChooseCitiesViewModel::class)
-    fun bindChooseCitiesViewModel(chooseCitiesViewModel: ChooseCitiesViewModel): ViewModel
+    @ViewModelKey(WeatherViewModel::class)
+    fun bindChooseCitiesViewModel(weatherViewModel: WeatherViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(CurrentCityViewModel::class)
-    fun bindCurrentCityViewModel(currentCityViewModel: CurrentCityViewModel): ViewModel
+    @ViewModelKey(ForecastViewModel::class)
+    fun bindCurrentCityViewModel(forecastViewModel: ForecastViewModel): ViewModel
 
     @Binds
     fun bindWeatherViewModelFactory(weatherViewModelFactory: WeatherViewModelFactory): ViewModelProvider.Factory

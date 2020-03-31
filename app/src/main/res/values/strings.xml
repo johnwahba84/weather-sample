@@ -5,15 +5,19 @@
 
     <string name="_alphabetical_comma">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM,</string>
 
-    <string name="main_screen_title">Weather</string>
-    <string name="main_choose_cities">Choose cities</string>
-    <string name="main_current_city">Current city</string>
+    <string name="main_screen_title">Weather App</string>
+    <string name="main_weather">Weather</string>
+    <string name="main_forecast">Forecast</string>
 
-    <string name="choose_cities_screen_title">Choose cities</string>
-    <string name="choose_cities_hint">Write cities names</string>
-    <string name="choose_cities_error">Min. 3, Max. 7, Comma separated</string>
-    <string name="choose_cities_btn">Fetch</string>
+    <string name="weather_screen_title">Weather</string>
+    <string name="weather_hint">Write cities names</string>
+    <string name="weather_error">Min. 3, Max. 7, Comma separated</string>
+    <string name="weather_btn">Fetch</string>
+    <string name="weather_min_temp">Min. Temp:</string>
+    <string name="weather_max_temp">Max. Temp:</string>
+    <string name="weather_desc">Weather:</string>
+    <string name="weather_speed">Speed:</string>
 
-    <string name="current_city_screen_title">Current city</string>
+    <string name="forecast_screen_title">Forecast</string>
 
 </resources>

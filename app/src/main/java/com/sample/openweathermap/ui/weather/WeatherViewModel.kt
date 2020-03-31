@@ -1,4 +1,4 @@
-package com.sample.openweathermap.ui.choosecities
+package com.sample.openweathermap.ui.weather
 
 import android.app.Application
 import androidx.databinding.ObservableField
@@ -13,15 +13,20 @@ import com.sample.openweathermap.utils.AbsentLiveData
 import com.sample.openweathermap.vo.Resource
 import javax.inject.Inject
 
-class ChooseCitiesViewModel @Inject constructor(
+class WeatherViewModel @Inject constructor(
     private val context: Application,
     repository: WeatherRepository
 ) : BaseViewModel(context) {
 
-    private var cityList: List<String>? = null
+    private var cityList = ArrayList<String>()
+    private var weatherResponseList = ArrayList<WeatherResponse>()
 
     val citiesNames = ObservableField<String>()
     val citiesNamesError = ObservableField<String>()
+
+    val showLoading = ObservableField<Boolean>()
+
+    var callAdapter = MutableLiveData<List<WeatherResponse>>()
 
     var weatherRequest = MutableLiveData<String>()
     var weatherResponse: LiveData<Resource<WeatherResponse>> = Transformations
@@ -35,25 +40,39 @@ class ChooseCitiesViewModel @Inject constructor(
     fun onFetchClicked() {
 
         if (formValidated()) {
-            for (cityName in cityList!!)
-                weatherRequest.value = cityName
+            weatherResponseList.clear()
+            weatherRequest.value = cityList[0]
         }
     }
 
     private fun formValidated(): Boolean {
 
-        cityList = citiesNames.get()?.split(",")
+        val names = citiesNames.get()?.split(",")
 
-        if (cityList?.size in 3..7) {
+        cityList.clear()
+        if (!names.isNullOrEmpty())
+            for (name in names)
+                cityList.add(name)
+
+
+        if (cityList.size in 3..7) {
             citiesNamesError.set(null)
             return true
         }
 
-        citiesNamesError.set(context.getString(R.string.choose_cities_error))
+        citiesNamesError.set(context.getString(R.string.weather_error))
         return false
     }
 
     fun processResponse(data: WeatherResponse?) {
 
+        data?.let { weatherResponseList.add(it) }
+
+        cityList.removeAt(0)
+
+        if (cityList.isNullOrEmpty())
+            callAdapter.value = weatherResponseList
+        else
+            weatherRequest.value = cityList[0]
     }
 }

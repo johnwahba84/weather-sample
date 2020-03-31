@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.sample.openweathermap.ui.currentcity.CurrentCityViewModel" />
+            type="com.sample.openweathermap.ui.forcast.ForecastViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
