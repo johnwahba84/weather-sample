@@ -18,6 +18,33 @@
         android:layout_height="match_parent"
         android:padding="@dimen/default_screen_padding">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cities_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:error="@{viewModel.citiesNamesError}"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/choose_cities_hint"
+                android:inputType="text"
+                android:digits="@string/_alphabetical_comma"
+                android:text="@={viewModel.citiesNames}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_margin_16"
+            android:onClick="@{()->viewModel.onFetchClicked()}"
+            android:text="@string/choose_cities_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cities_input" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

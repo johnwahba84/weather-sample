@@ -71,15 +71,15 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
         AndroidSupportInjection.inject(this)
     }
 
-    protected fun subscribeToViewLiveData() {
+    open fun subscribeToViewLiveData() {
         //All Views Tasks
     }
 
-    protected fun subscribeToNetworkLiveData() {
+    open fun subscribeToNetworkLiveData() {
         //All Network Tasks
     }
 
-    protected fun subscribeToNavigationLiveData() {
+    open fun subscribeToNavigationLiveData() {
 
         injectedViewModel.navigationCommands.observe(viewLifecycleOwner, Observer {
 

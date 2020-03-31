@@ -2,4 +2,7 @@
 <resources>
 
     <dimen name="default_screen_padding">24dp</dimen>
+
+    <dimen name="padding_margin_16">16dp</dimen>
+
 </resources>

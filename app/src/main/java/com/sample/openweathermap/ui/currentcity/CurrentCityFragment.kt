@@ -5,6 +5,7 @@ import com.sample.openweathermap.R
 import com.sample.openweathermap.databinding.ChooseCitiesFragmentBinding
 import com.sample.openweathermap.ui.base.BaseFragment
 
+
 class CurrentCityFragment : BaseFragment<ChooseCitiesFragmentBinding, CurrentCityViewModel>() {
 
     override val bindingVariable: Int
@@ -15,4 +16,6 @@ class CurrentCityFragment : BaseFragment<ChooseCitiesFragmentBinding, CurrentCit
 
     override val viewModel: Class<CurrentCityViewModel>
         get() = CurrentCityViewModel::class.java
+
+
 }

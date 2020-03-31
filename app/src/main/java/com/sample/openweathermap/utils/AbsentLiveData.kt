@@ -1,4 +1,4 @@
-package com.sample.openweathermap.util
+package com.sample.openweathermap.utils
 
 import androidx.lifecycle.LiveData
 

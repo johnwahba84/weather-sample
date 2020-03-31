@@ -3,7 +3,7 @@ package com.sample.openweathermap.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Response(
+data class WeatherResponse(
     @SerializedName("base")
     val base: String,
     @SerializedName("clouds")
@@ -36,9 +36,9 @@ data class Response(
 
     data class Coord(
         @SerializedName("lat")
-        val lat: Int,
+        val lat: Double,
         @SerializedName("lon")
-        val lon: Int
+        val lon: Double
     )
 
     data class Main(

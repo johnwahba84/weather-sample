@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">OpenWeatherMap</string>
 
+    <string name="_ok">OK</string>
+
+    <string name="_alphabetical_comma">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM,</string>
+
     <string name="main_screen_title">Weather</string>
     <string name="main_choose_cities">Choose cities</string>
     <string name="main_current_city">Current city</string>
 
     <string name="choose_cities_screen_title">Choose cities</string>
+    <string name="choose_cities_hint">Write cities names</string>
+    <string name="choose_cities_error">Min. 3, Max. 7, Comma separated</string>
+    <string name="choose_cities_btn">Fetch</string>
 
     <string name="current_city_screen_title">Current city</string>
 
