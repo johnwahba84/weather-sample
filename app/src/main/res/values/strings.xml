@@ -5,6 +5,8 @@
 
     <string name="_alphabetical_comma">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM,</string>
 
+    <string name="_location_permission">Turn on location</string>
+
     <string name="main_screen_title">Weather App</string>
     <string name="main_weather">Weather</string>
     <string name="main_forecast">Forecast</string>
@@ -13,11 +15,17 @@
     <string name="weather_hint">Write cities names</string>
     <string name="weather_error">Min. 3, Max. 7, Comma separated</string>
     <string name="weather_btn">Fetch</string>
+    <string name="weather_city_name">City name:</string>
     <string name="weather_min_temp">Min. Temp:</string>
     <string name="weather_max_temp">Max. Temp:</string>
     <string name="weather_desc">Weather:</string>
     <string name="weather_speed">Speed:</string>
 
     <string name="forecast_screen_title">Forecast</string>
+    <string name="forecast_date">Date:</string>
+    <string name="forecast_min_temp">Min. Temp:</string>
+    <string name="forecast_max_temp">Max. Temp:</string>
+    <string name="forecast_desc">Weather:</string>
+    <string name="forecast_speed">Speed:</string>
 
 </resources>

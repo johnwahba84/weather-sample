@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.sample.openweathermap.R
-import com.sample.openweathermap.data.repository.WeatherRepository
-import com.sample.openweathermap.model.WeatherResponse
+import com.sample.openweathermap.data.repository.WeatherAppRepository
+import com.sample.openweathermap.model.weather.WeatherResponse
 import com.sample.openweathermap.ui.base.BaseViewModel
 import com.sample.openweathermap.utils.AbsentLiveData
 import com.sample.openweathermap.vo.Resource
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class WeatherViewModel @Inject constructor(
     private val context: Application,
-    repository: WeatherRepository
+    repository: WeatherAppRepository
 ) : BaseViewModel(context) {
 
     private var cityList = ArrayList<String>()
@@ -40,6 +40,7 @@ class WeatherViewModel @Inject constructor(
     fun onFetchClicked() {
 
         if (formValidated()) {
+            hideKeyboard.value = true
             weatherResponseList.clear()
             weatherRequest.value = cityList[0]
         }

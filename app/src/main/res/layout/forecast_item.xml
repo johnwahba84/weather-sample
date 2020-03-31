@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.sample.openweathermap.model.weather.WeatherResponse" />
+            type="com.sample.openweathermap.model.forecast.ForecastResponse.Forecast" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,18 +20,18 @@
         android:padding="@dimen/default_screen_padding">
 
         <TextView
-            android:id="@+id/name_title"
+            android:id="@+id/date_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weather_city_name"
+            android:text="@string/forecast_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/name_desc"
+            android:id="@+id/date_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item.name}"
+            android:text="@{item.dtTxt}"
             app:layout_constraintStart_toEndOf="@+id/min_temp_title"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,9 +39,9 @@
             android:id="@+id/min_temp_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weather_min_temp"
+            android:text="@string/forecast_min_temp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name_title" />
+            app:layout_constraintTop_toBottomOf="@id/date_title" />
 
         <TextView
             android:id="@+id/min_temp_desc"
@@ -49,13 +49,13 @@
             android:layout_height="wrap_content"
             android:text="@{Double.toString(item.main.tempMin)}"
             app:layout_constraintStart_toEndOf="@+id/min_temp_title"
-            app:layout_constraintTop_toBottomOf="@id/name_title" />
+            app:layout_constraintTop_toBottomOf="@id/date_title"/>
 
         <TextView
             android:id="@+id/max_temp_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weather_max_temp"
+            android:text="@string/forecast_max_temp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/min_temp_title" />
 
@@ -71,7 +71,7 @@
             android:id="@+id/weather_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weather_desc"
+            android:text="@string/forecast_desc"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/max_temp_title" />
 
@@ -87,7 +87,7 @@
             android:id="@+id/speed_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weather_speed"
+            android:text="@string/forecast_speed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weather_title" />
 

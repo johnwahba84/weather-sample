@@ -1,5 +1,6 @@
 package com.sample.openweathermap.constants
 
+import androidx.annotation.IntDef
 import androidx.annotation.StringDef
 
 object AppConstants{
@@ -12,10 +13,18 @@ object AppConstants{
         }
     }
 
-    @StringDef(ApiPath.WEATHER)
+    @StringDef(ApiPath.WEATHER, ApiPath.FORECAST)
     annotation class ApiPath{
         companion object{
             const val WEATHER = "weather"
+            const val FORECAST = "forecast"
+        }
+    }
+
+    @IntDef(Permission.PERMISSION_ID)
+    annotation class Permission{
+        companion object{
+            const val PERMISSION_ID = 44
         }
     }
 }

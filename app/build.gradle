@@ -68,6 +68,8 @@ dependencies {
 
     implementation deps.timber
 
+    implementation deps.location
+
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
     kapt deps.lifecycle.compiler

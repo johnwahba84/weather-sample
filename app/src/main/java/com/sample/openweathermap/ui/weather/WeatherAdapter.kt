@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.openweathermap.databinding.WeatherItemBinding
-import com.sample.openweathermap.model.WeatherResponse
+import com.sample.openweathermap.model.weather.WeatherResponse
 import com.sample.openweathermap.ui.weather.WeatherAdapter.WeatherViewHolder
 
 class WeatherAdapter(private val weatherList: List<WeatherResponse>?) :

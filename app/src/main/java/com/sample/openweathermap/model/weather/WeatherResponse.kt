@@ -1,4 +1,4 @@
-package com.sample.openweathermap.model
+package com.sample.openweathermap.model.weather
 
 
 import com.google.gson.annotations.SerializedName
