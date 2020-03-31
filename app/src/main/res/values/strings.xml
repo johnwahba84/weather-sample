@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">OpenWeatherMap</string>
+
+    <string name="main_screen_title">Weather</string>
+    <string name="main_choose_cities">Choose cities</string>
+    <string name="main_current_city">Current city</string>
+
+    <string name="choose_cities_screen_title">Choose cities</string>
+
+    <string name="current_city_screen_title">Current city</string>
+
+</resources>

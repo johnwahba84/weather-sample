@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.sample.openweathermap.ui.home.HomeFragment"
+        android:label="@string/main_screen_title"
+        tools:layout="@layout/home_fragment">
+
+        <action
+            android:id="@+id/action_main_to_choose_cities"
+            app:destination="@id/choose_cities" />
+
+        <action
+            android:id="@+id/action_main_to_current_city"
+            app:destination="@id/current_city" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/choose_cities"
+        android:name="com.sample.openweathermap.ui.choosecities.ChooseCitiesFragment"
+        android:label="@string/choose_cities_screen_title"
+        tools:layout="@layout/choose_cities_fragment" />
+
+    <fragment
+        android:id="@+id/current_city"
+        android:name="com.sample.openweathermap.ui.currentcity.CurrentCityFragment"
+        android:label="@string/current_city_screen_title"
+        tools:layout="@layout/current_city_fragment" />
+
+</navigation>
