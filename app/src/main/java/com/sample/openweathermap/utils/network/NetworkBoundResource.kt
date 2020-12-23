@@ -2,7 +2,6 @@ package com.sample.openweathermap.utils.network
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.MediatorLiveData
 import com.sample.openweathermap.vo.Resource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -15,8 +14,6 @@ import kotlinx.coroutines.flow.*
 @FlowPreview
 @ExperimentalCoroutinesApi
 abstract class NetworkBoundResource<ResultType> {
-
-    private val result = MediatorLiveData<Resource<ResultType>>()
 
     fun asFlow(): Flow<Resource<ResultType>> = flow {
 
