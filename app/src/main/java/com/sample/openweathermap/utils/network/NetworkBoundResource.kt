@@ -2,47 +2,67 @@ package com.sample.openweathermap.utils.network
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.sample.openweathermap.vo.Resource
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 
 /**
  * A generic class that can provide a resource backed by network.
  */
+
+@FlowPreview
+@ExperimentalCoroutinesApi
 abstract class NetworkBoundResource<ResultType> {
 
     private val result = MediatorLiveData<Resource<ResultType>>()
 
-    init {
-        result.value = Resource.loading(null)
-        fetchFromNetwork()
-    }
+    fun asFlow(): Flow<Resource<ResultType>> = flow {
 
-    private fun fetchFromNetwork() {
+        emit(Resource.loading(null))
 
-        val apiResponse = loadFromNetwork()
+        val dbValue = loadFromDb().first()
 
-        result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
-            when (response) {
+        if (shouldFetch(dbValue)) {
+
+            emit(Resource.loading(null))
+
+            when (val response = fetchFromNetwork()) {
                 is ApiSuccessResponse -> {
-                    result.value = Resource.success(processResponse(response))
+                    saveNetworkResult(processResponse(response))
+                    emitAll(loadFromDb().map { Resource.success(it) })
+                }
+                is ApiEmptyResponse -> {
+                    emitAll(loadFromDb().map { Resource.success(null) })
                 }
                 is ApiErrorResponse -> {
                     onFetchFailed()
-                    result.value = Resource.error(response.errorMessage, null)
+                    emitAll(loadFromDb().map { Resource.error(response.errorMessage, null) })
                 }
             }
+        } else {
+            emitAll(loadFromDb().map { Resource.success(it) })
         }
     }
 
-    @MainThread
-    abstract fun loadFromNetwork(): LiveData<ApiResponse<ResultType>>
-
-    protected open fun onFetchFailed() {}
-
-    fun asLiveData() = result as LiveData<Resource<ResultType>>
+    protected open fun onFetchFailed() {
+        //Implement in sub-classes to handle error
+    }
 
     @WorkerThread
     protected open fun processResponse(response: ApiSuccessResponse<ResultType>) = response.body
+
+    @WorkerThread
+    protected abstract suspend fun saveNetworkResult(data: ResultType)
+
+    @MainThread
+    protected abstract fun shouldFetch(data: ResultType?): Boolean
+
+    @MainThread
+    protected abstract fun loadFromDb(): Flow<ResultType>
+
+    @MainThread
+    protected abstract suspend fun fetchFromNetwork(): ApiResponse<ResultType>
+
 }
