@@ -27,4 +27,11 @@ object AppConstants{
             const val PERMISSION_ID = 44
         }
     }
+
+    @StringDef(Database.NAME)
+    annotation class Database{
+        companion object{
+            const val NAME = "Weather"
+        }
+    }
 }

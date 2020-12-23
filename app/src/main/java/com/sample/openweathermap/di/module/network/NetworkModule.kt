@@ -10,9 +10,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = [ApiModule::class, RepositoryModule::class])
+@Module(includes = [ApiModule::class, RepositoryModule::class, DatabaseModule::class])
 class NetworkModule {
-
 
     @Singleton
     @Provides

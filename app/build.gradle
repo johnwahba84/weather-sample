@@ -51,20 +51,27 @@ dependencies {
     implementation deps.core_ktx
     implementation deps.transition
     implementation deps.fragment.testing
+
     implementation deps.navigation.fragment_ktx
+
     implementation deps.room.runtime
     implementation deps.room.ktx
+
     implementation deps.lifecycle.livedata_ktx
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.java8
+
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
+
     implementation deps.okhttp_logging_interceptor
+
     implementation deps.glide.runtime
 
     implementation deps.dagger.runtime
     implementation deps.dagger.android
     implementation deps.dagger.android_support
+
     implementation deps.constraint_layout
     implementation deps.kotlin.stdlib
 
@@ -75,6 +82,7 @@ dependencies {
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
     kapt deps.lifecycle.compiler
+    kapt deps.room.compiler
 
     testImplementation deps.junit
     testImplementation deps.mock_web_server
