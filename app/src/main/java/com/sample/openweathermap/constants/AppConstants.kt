@@ -5,7 +5,7 @@ import androidx.annotation.StringDef
 
 object AppConstants{
 
-    @StringDef(ApiPath.WEATHER)
+    @StringDef(ApiConfiguration.URL, ApiConfiguration.API_ID)
     annotation class ApiConfiguration{
         companion object{
             const val URL = "https://api.openweathermap.org/data/2.5/"

@@ -5,17 +5,20 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.sample.openweathermap.data.repository.WeatherAppRepository
+import androidx.lifecycle.viewModelScope
 import com.sample.openweathermap.domain.model.forecast.ForecastRequest
 import com.sample.openweathermap.domain.model.forecast.ForecastResponse
+import com.sample.openweathermap.domain.usecase.GetForecastByLocation
 import com.sample.openweathermap.ui.base.BaseViewModel
 import com.sample.openweathermap.utils.AbsentLiveData
+import com.sample.openweathermap.utils.network.CoroutinesLiveDataHelper
 import com.sample.openweathermap.vo.Resource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ForecastViewModel @Inject constructor(
-    private val context: Application,
-    repository: WeatherAppRepository
+    val context: Application,
+    val getForecastByLocation: GetForecastByLocation
 ) : BaseViewModel(context) {
 
     val showLoading = ObservableField<Boolean>()
@@ -28,10 +31,12 @@ class ForecastViewModel @Inject constructor(
             if (null == forecastRequest)
                 AbsentLiveData.create()
             else
-                repository.forecastByLocation(
-                    lat = forecastRequest.lat,
-                    lon = forecastRequest.lon
-                )
+                object :
+                    CoroutinesLiveDataHelper<ForecastResponse>(viewModelScope.coroutineContext) {
+                    override suspend fun loadFromNetwork(): Flow<Resource<ForecastResponse>> {
+                        return getForecastByLocation(forecastRequest)
+                    }
+                }.asLiveData()
         }
 
     fun processResponse(data: ForecastResponse?) {

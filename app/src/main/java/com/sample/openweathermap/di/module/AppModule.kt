@@ -2,6 +2,7 @@ package com.sample.openweathermap.di.module
 
 import android.app.Application
 import android.content.Context
+import com.sample.openweathermap.di.module.network.NetworkModule
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

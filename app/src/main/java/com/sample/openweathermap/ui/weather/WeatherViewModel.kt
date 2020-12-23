@@ -5,17 +5,20 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.viewModelScope
 import com.sample.openweathermap.R
-import com.sample.openweathermap.data.repository.WeatherAppRepository
 import com.sample.openweathermap.domain.model.weather.WeatherResponse
+import com.sample.openweathermap.domain.usecase.GetWeatherByCityName
 import com.sample.openweathermap.ui.base.BaseViewModel
 import com.sample.openweathermap.utils.AbsentLiveData
+import com.sample.openweathermap.utils.network.CoroutinesLiveDataHelper
 import com.sample.openweathermap.vo.Resource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class WeatherViewModel @Inject constructor(
-    private val context: Application,
-    repository: WeatherAppRepository
+    val context: Application,
+    val getWeatherByCityName: GetWeatherByCityName
 ) : BaseViewModel(context) {
 
     private var cityList = ArrayList<String>()
@@ -34,7 +37,11 @@ class WeatherViewModel @Inject constructor(
             if (null == weatherRequest)
                 AbsentLiveData.create()
             else
-                repository.weatherByCityName(weatherRequest)
+                object : CoroutinesLiveDataHelper<WeatherResponse>(viewModelScope.coroutineContext){
+                    override suspend fun loadFromNetwork(): Flow<Resource<WeatherResponse>> {
+                        return getWeatherByCityName(weatherRequest)
+                    }
+                }.asLiveData()
         }
 
     fun onFetchClicked() {

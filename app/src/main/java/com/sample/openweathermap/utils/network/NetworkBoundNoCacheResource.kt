@@ -1,48 +1,39 @@
 package com.sample.openweathermap.utils.network
 
 import androidx.annotation.MainThread
-import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.sample.openweathermap.vo.Resource
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 /**
  * A generic class that can provide a resource backed by network.
  */
+@FlowPreview
+@ExperimentalCoroutinesApi
 abstract class NetworkBoundNoCacheResource<ResultType> {
 
-    private val result = MediatorLiveData<Resource<ResultType>>()
+    fun asFlow(): Flow<Resource<ResultType>> = flow {
 
-    init {
-        result.value = Resource.loading(null)
-        fetchFromNetwork()
-    }
+        emit(Resource.loading(null))
 
-    private fun fetchFromNetwork() {
-
-        val apiResponse = loadFromNetwork()
-
-        result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
-            when (response) {
-                is ApiSuccessResponse -> {
-                    result.value = Resource.success(processResponse(response))
-                }
-                is ApiErrorResponse -> {
-                    onFetchFailed()
-                    result.value = Resource.error(response.errorMessage, null)
-                }
+        when (val response = fetchFromNetwork()) {
+            is ApiSuccessResponse -> {
+                emit(Resource.success(response.body))
+            }
+            is ApiEmptyResponse -> {
+                emit(Resource.success(null))
+            }
+            is ApiErrorResponse -> {
+                onFetchFailed()
+                emit(Resource.error(response.errorMessage, null))
             }
         }
     }
 
     @MainThread
-    abstract fun loadFromNetwork(): LiveData<ApiResponse<ResultType>>
+    protected abstract suspend fun fetchFromNetwork(): ApiResponse<ResultType>
 
     protected open fun onFetchFailed() {}
-
-    fun asLiveData() = result as LiveData<Resource<ResultType>>
-
-    @WorkerThread
-    protected open fun processResponse(response: ApiSuccessResponse<ResultType>) = response.body
 }
