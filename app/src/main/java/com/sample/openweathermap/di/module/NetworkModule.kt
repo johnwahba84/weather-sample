@@ -1,7 +1,7 @@
 package com.sample.openweathermap.di.module
 
 import com.sample.openweathermap.constants.AppConstants
-import com.sample.openweathermap.utils.LiveDataCallAdapterFactory
+import com.sample.openweathermap.utils.network.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

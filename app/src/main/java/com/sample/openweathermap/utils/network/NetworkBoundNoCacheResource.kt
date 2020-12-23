@@ -1,12 +1,9 @@
-package com.sample.openweathermap.data.repository
+package com.sample.openweathermap.utils.network
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.sample.openweathermap.data.remote.ApiErrorResponse
-import com.sample.openweathermap.data.remote.ApiResponse
-import com.sample.openweathermap.data.remote.ApiSuccessResponse
 import com.sample.openweathermap.vo.Resource
 
 /**

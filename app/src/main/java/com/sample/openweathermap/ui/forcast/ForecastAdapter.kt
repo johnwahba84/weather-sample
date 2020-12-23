@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.openweathermap.databinding.ForecastItemBinding
-import com.sample.openweathermap.model.forecast.ForecastResponse
+import com.sample.openweathermap.domain.model.forecast.ForecastResponse
 
 class ForecastAdapter(private val forecastList: List<ForecastResponse.Forecast>?) :
     RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder>() {

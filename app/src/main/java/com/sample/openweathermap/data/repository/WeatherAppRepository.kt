@@ -2,10 +2,11 @@ package com.sample.openweathermap.data.repository
 
 import androidx.lifecycle.LiveData
 import com.sample.openweathermap.constants.AppConstants
-import com.sample.openweathermap.data.remote.ApiResponse
+import com.sample.openweathermap.utils.network.ApiResponse
 import com.sample.openweathermap.data.remote.ApiWeatherService
-import com.sample.openweathermap.model.forecast.ForecastResponse
-import com.sample.openweathermap.model.weather.WeatherResponse
+import com.sample.openweathermap.domain.model.forecast.ForecastResponse
+import com.sample.openweathermap.domain.model.weather.WeatherResponse
+import com.sample.openweathermap.utils.network.NetworkBoundNoCacheResource
 import com.sample.openweathermap.vo.Resource
 import javax.inject.Inject
 

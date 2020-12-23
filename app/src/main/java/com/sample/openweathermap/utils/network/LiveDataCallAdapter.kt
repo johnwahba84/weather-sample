@@ -1,7 +1,6 @@
-package com.sample.openweathermap.utils
+package com.sample.openweathermap.utils.network
 
 import androidx.lifecycle.LiveData
-import com.sample.openweathermap.data.remote.ApiResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback

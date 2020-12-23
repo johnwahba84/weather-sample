@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.sample.openweathermap.R
 import com.sample.openweathermap.data.repository.WeatherAppRepository
-import com.sample.openweathermap.model.weather.WeatherResponse
+import com.sample.openweathermap.domain.model.weather.WeatherResponse
 import com.sample.openweathermap.ui.base.BaseViewModel
 import com.sample.openweathermap.utils.AbsentLiveData
 import com.sample.openweathermap.vo.Resource

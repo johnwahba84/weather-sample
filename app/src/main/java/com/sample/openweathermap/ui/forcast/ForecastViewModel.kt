@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.sample.openweathermap.data.repository.WeatherAppRepository
-import com.sample.openweathermap.model.forecast.ForecastRequest
-import com.sample.openweathermap.model.forecast.ForecastResponse
+import com.sample.openweathermap.domain.model.forecast.ForecastRequest
+import com.sample.openweathermap.domain.model.forecast.ForecastResponse
 import com.sample.openweathermap.ui.base.BaseViewModel
 import com.sample.openweathermap.utils.AbsentLiveData
 import com.sample.openweathermap.vo.Resource
@@ -39,6 +39,10 @@ class ForecastViewModel @Inject constructor(
     }
 
     fun callForecastApi(lat: String, lon: String) {
-        forecastRequest.value = ForecastRequest(lat = lat, lon = lon)
+        forecastRequest.value =
+            ForecastRequest(
+                lat = lat,
+                lon = lon
+            )
     }
 }

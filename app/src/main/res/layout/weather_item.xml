@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.sample.openweathermap.model.weather.WeatherResponse" />
+            type="com.sample.openweathermap.domain.model.weather.WeatherResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
