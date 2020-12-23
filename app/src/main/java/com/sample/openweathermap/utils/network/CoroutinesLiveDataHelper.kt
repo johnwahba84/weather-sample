@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlin.coroutines.CoroutineContext
 
-abstract class CoroutinesLiveDataHelper<ResultType>(val coroutineContext: CoroutineContext) {
+abstract class CoroutinesLiveDataHelper<ResultType>(coroutineContext: CoroutineContext) {
 
     private val result: LiveData<Resource<ResultType>>
 
