@@ -1,6 +1,7 @@
 package com.sample.openweathermap.di.module.network
 
 import com.sample.openweathermap.constants.AppConstants
+import com.sample.openweathermap.utils.network.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -26,6 +27,7 @@ class NetworkModule {
     fun provideGithubService(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(AppConstants.ApiConfiguration.URL)
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
