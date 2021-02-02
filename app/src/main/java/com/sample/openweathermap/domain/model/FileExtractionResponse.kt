@@ -21,6 +21,7 @@ data class FileExtractionResponse(
     )
 
     data class Result(
+
         @SerializedName("cardNumber")
         val cardNumber: String,
         @SerializedName("dob")
@@ -40,6 +41,19 @@ data class FileExtractionResponse(
         @SerializedName("nationality")
         val nationality: String,
         @SerializedName("nationalityCode")
-        val nationalityCode: String
+        val nationalityCode: String,
+
+        @SerializedName("surname")
+        val surname: String,
+        @SerializedName("passportNumber")
+        val passportNumber: String,
+        @SerializedName("countryCode")
+        val countryCode: String,
+        @SerializedName("country")
+        val country: String,
+        @SerializedName("dateOfBirth")
+        val dateOfBirth: String,
+        @SerializedName("dateOfExpiry")
+        val dateOfExpiry: String
     )
 }

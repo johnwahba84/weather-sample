@@ -29,6 +29,8 @@ class HomeViewModel @Inject constructor(
     private val fileExtraction: FileExtraction
 ) : BaseViewModel(context) {
 
+    var frontID: String? = null
+
     val showLoading = ObservableBoolean()
 
     val openCameraIntent = SingleLiveEvent<String>()
@@ -101,15 +103,15 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onEmiratesIDFrontClicked() {
-        openCameraIntent.value = "emiratesId"
+        openCameraIntent.value = "emiratesId_front"
     }
 
     fun onEmiratesIDBackClicked() {
-        openCameraIntent.value = "emiratesId"
+        openCameraIntent.value = "emiratesId_back"
     }
 
     fun onPassportClicked() {
-        openCameraIntent.value = "genericPassport"
+        openCameraIntent.value = "passport"
     }
 
     fun uploadApi(file: File) {
@@ -136,12 +138,27 @@ class HomeViewModel @Inject constructor(
 //            )
 //        )
 
-        fileExtractionRequest.value = FileExtractionRequest(
-            task = openCameraIntent.value!!,
-            essentials = FileExtractionRequest.Essentials(
-                files = listOf(data?.file?.directURL)
-            )
-        )
+        when (openCameraIntent.value) {
+            "emiratesId_front" -> {
+                frontID = data?.file?.directURL
+            }
+            "emiratesId_back" -> {
+                fileExtractionRequest.value = FileExtractionRequest(
+                    task = "emiratesId",
+                    essentials = FileExtractionRequest.Essentials(
+                        files = listOf(frontID, data?.file?.directURL)
+                    )
+                )
+            }
+            "passport" -> {
+                fileExtractionRequest.value = FileExtractionRequest(
+                    task = "genericPassport",
+                    essentials = FileExtractionRequest.Essentials(
+                        files = listOf(data?.file?.directURL)
+                    )
+                )
+            }
+        }
 
     }
 
@@ -150,6 +167,6 @@ class HomeViewModel @Inject constructor(
     }
 
     fun processFileExtractionResponse(data: FileExtractionResponse?) {
-
+        Toast.makeText(context, "Data Extraction Success", Toast.LENGTH_LONG).show()
     }
 }

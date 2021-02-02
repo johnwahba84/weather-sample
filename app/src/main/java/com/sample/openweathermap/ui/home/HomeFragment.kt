@@ -83,6 +83,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
             if (result?.status == Status.SUCCESS) {
                 injectedViewModel.processFileExtractionResponse(result.data)
+
+                AlertDialog.Builder(requireActivity())
+                    .setMessage(result.data?.result.toString())
+                    .setPositiveButton(R.string._ok, null)
+                    .show()
+
             } else if (result?.status == Status.ERROR) {
                 AlertDialog.Builder(requireActivity())
                     .setMessage(result.message)
@@ -124,7 +130,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     private val takePictureRegistration =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
             if (isSuccess) {
-                viewDataBinding.photoPreviewOne.setImageURI(imageUri)
+                viewDataBinding.photoPreview.setImageURI(imageUri)
                 injectedViewModel.uploadApi(File(ImageUtils.currentPhotoPath))
 
 //                val bmp = BitmapFactory.decodeFile(ImageUtils.currentPhotoPath)

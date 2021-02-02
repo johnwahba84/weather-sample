@@ -33,8 +33,8 @@
             android:layout_height="wrap_content"
             android:onClick="@{()->viewModel.onEmiratesIDBackClicked()}"
             android:text="@string/main_emirates_id_back"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/authenticate" />
 
         <Button
@@ -58,25 +58,15 @@
 
 
         <ImageView
-            android:id="@+id/photoPreviewOne"
+            android:id="@+id/photoPreview"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_margin_16"
             android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passport"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/photoPreviewTwo"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="@dimen/padding_margin_16"
-            android:adjustViewBounds="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/photoPreviewOne"
             tools:ignore="ContentDescription" />
 
         <ProgressBar
