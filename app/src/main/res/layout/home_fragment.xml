@@ -19,23 +19,54 @@
         android:padding="@dimen/default_screen_padding">
 
         <Button
+            android:id="@+id/passport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.onChooseCitiesClicked()}"
-            android:text="@string/main_weather"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:onClick="@{()->viewModel.onEmiratesIDClicked()}"
+            android:text="@string/main_emirates_id"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/authenticate" />
+
+        <Button
+            android:id="@+id/emiratesId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.onPassportClicked()}"
+            android:text="@string/main_passport"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/authenticate" />
+
+        <Button
+            android:id="@+id/authenticate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.onAuthenticateClicked()}"
+            android:text="@string/main_authenticate"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.onCurrentClicked()}"
-            android:text="@string/main_forecast"
+
+        <ImageView
+            android:id="@+id/photoPreview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emiratesId"
+            tools:ignore="ContentDescription" />
 
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{viewModel.showLoading}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

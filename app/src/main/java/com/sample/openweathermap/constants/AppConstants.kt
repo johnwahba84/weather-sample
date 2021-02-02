@@ -3,35 +3,42 @@ package com.sample.openweathermap.constants
 import androidx.annotation.IntDef
 import androidx.annotation.StringDef
 
-object AppConstants{
+object AppConstants {
 
-    @StringDef(ApiConfiguration.URL, ApiConfiguration.API_ID)
-    annotation class ApiConfiguration{
-        companion object{
-            const val URL = "https://api.openweathermap.org/data/2.5/"
-            const val API_ID = "fc7fa1eb62e6fabe073ea86f3dd570d5"
+    @StringDef(
+        ApiConfiguration.URL,
+        ApiConfiguration.URL_UPLOAD,
+        ApiConfiguration.API_ID,
+        ApiConfiguration.API_PASSWORD
+    )
+    annotation class ApiConfiguration {
+        companion object {
+            const val URL = "https://preproduction.signzy.tech/api/v2/patrons/"
+            const val URL_UPLOAD = "https://preproduction-persist.signzy.tech/api/files/"
+            const val API_ID = ""
+            const val API_PASSWORD = ""
         }
     }
 
-    @StringDef(ApiPath.WEATHER, ApiPath.FORECAST)
-    annotation class ApiPath{
-        companion object{
-            const val WEATHER = "weather"
-            const val FORECAST = "forecast"
+    @StringDef(ApiPath.AUTHENTICATE, ApiPath.UPLOAD)
+    annotation class ApiPath {
+        companion object {
+            const val AUTHENTICATE = "login"
+            const val UPLOAD = "upload"
         }
     }
 
     @IntDef(Permission.PERMISSION_ID)
-    annotation class Permission{
-        companion object{
+    annotation class Permission {
+        companion object {
             const val PERMISSION_ID = 44
         }
     }
 
     @StringDef(Database.NAME)
-    annotation class Database{
-        companion object{
-            const val NAME = "Weather"
+    annotation class Database {
+        companion object {
+            const val NAME = "SignZY"
         }
     }
 }

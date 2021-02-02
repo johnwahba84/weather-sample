@@ -52,6 +52,9 @@ dependencies {
     implementation deps.transition
     implementation deps.fragment.testing
 
+    implementation deps.activity.activity_ktx
+    implementation deps.fragment.runtime_ktx
+
     implementation deps.navigation.fragment_ktx
 
     implementation deps.room.runtime

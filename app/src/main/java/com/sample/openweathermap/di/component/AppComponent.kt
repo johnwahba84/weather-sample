@@ -1,7 +1,7 @@
 package com.sample.openweathermap.di.component
 
 import android.app.Application
-import com.sample.openweathermap.WeatherApplication
+import com.sample.openweathermap.SignZYApplication
 import com.sample.openweathermap.di.builder.ActivityBuilderModule
 import com.sample.openweathermap.di.module.AppModule
 import dagger.BindsInstance
@@ -21,5 +21,5 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(weatherApplication: WeatherApplication)
+    fun inject(signZYApplication: SignZYApplication)
 }
