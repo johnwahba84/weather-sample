@@ -9,7 +9,8 @@
 
     <string name="main_screen_title">SignZY App</string>
     <string name="main_authenticate">Authenticate</string>
-    <string name="main_emirates_id">Emirates ID</string>
+    <string name="main_emirates_id_front">EIDA Front</string>
+    <string name="main_emirates_id_back">EIDA Back</string>
     <string name="main_passport">Passport</string>
 
 </resources>

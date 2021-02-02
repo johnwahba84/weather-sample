@@ -12,7 +12,5 @@ data class UploadRequest(
         @SerializedName("optimize")
         val optimize: String,
         @SerializedName("ttl")
-        val ttl: String,
-        @SerializedName("authorization")
-        val authorization: String
+        val ttl: String
     )

@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class Upload @Inject constructor(private val repository: SignZYRepository) {
 
-    suspend operator fun invoke(request: UploadRequest): Flow<Resource<UploadResponse>> {
-        return repository.upload(request)
+    suspend operator fun invoke(authorization: String, request: UploadRequest): Flow<Resource<UploadResponse>> {
+        return repository.upload(authorization, request)
     }
 }

@@ -5,10 +5,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.sample.openweathermap.constants.AppConstants
 import com.sample.openweathermap.data.remote.ApiSignZYService
-import com.sample.openweathermap.domain.model.AuthenticateRequest
-import com.sample.openweathermap.domain.model.AuthenticateResponse
-import com.sample.openweathermap.domain.model.UploadRequest
-import com.sample.openweathermap.domain.model.UploadResponse
+import com.sample.openweathermap.domain.model.*
 import com.sample.openweathermap.utils.network.ApiResponse
 import com.sample.openweathermap.utils.network.NetworkBoundNoCacheResource
 import com.sample.openweathermap.vo.Resource
@@ -23,7 +20,7 @@ import javax.inject.Inject
 
 class SignZYRepositoryImp @Inject constructor(
     private val apiSignZYService: ApiSignZYService
-): SignZYRepository {
+) : SignZYRepository {
 
     @FlowPreview
     @ExperimentalCoroutinesApi
@@ -35,7 +32,7 @@ class SignZYRepositoryImp @Inject constructor(
                     username = AppConstants.ApiConfiguration.API_ID,
                     password = AppConstants.ApiConfiguration.API_PASSWORD
                 )
-                val params= Gson().fromJson(
+                val params = Gson().fromJson(
                     GsonBuilder().create().toJson(request),
                     JsonObject::class.java
                 )
@@ -47,7 +44,10 @@ class SignZYRepositoryImp @Inject constructor(
 
     @FlowPreview
     @ExperimentalCoroutinesApi
-    override suspend fun upload(request: UploadRequest): Flow<Resource<UploadResponse>> {
+    override suspend fun upload(
+        authorization: String,
+        request: UploadRequest
+    ): Flow<Resource<UploadResponse>> {
         return object : NetworkBoundNoCacheResource<UploadResponse>() {
             override suspend fun fetchFromNetwork(): ApiResponse<UploadResponse> {
 
@@ -70,10 +70,62 @@ class SignZYRepositoryImp @Inject constructor(
                 return ApiResponse.create(
                     apiSignZYService.upload(
                         AppConstants.ApiConfiguration.URL_UPLOAD + AppConstants.ApiPath.UPLOAD,
-                        request.authorization,
+                        authorization,
                         file,
                         ttl,
                         optimize
+                    )
+                )
+            }
+        }.asFlow()
+    }
+
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    override suspend fun imageQuality(
+        authorization: String,
+        userID: String,
+        request: ImageQualityRequest
+    ): Flow<Resource<ImageQualityResponse>> {
+        return object : NetworkBoundNoCacheResource<ImageQualityResponse>() {
+            override suspend fun fetchFromNetwork(): ApiResponse<ImageQualityResponse> {
+
+                val params = Gson().fromJson(
+                    GsonBuilder().create().toJson(request),
+                    JsonObject::class.java
+                )
+
+                return ApiResponse.create(
+                    apiSignZYService.imageQuality(
+                        authorization,
+                        userID,
+                        params
+                    )
+                )
+            }
+        }.asFlow()
+    }
+
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    override suspend fun fileExtraction(
+        authorization: String,
+        userID: String,
+        request: FileExtractionRequest
+    ): Flow<Resource<FileExtractionResponse>> {
+        return object : NetworkBoundNoCacheResource<FileExtractionResponse>() {
+            override suspend fun fetchFromNetwork(): ApiResponse<FileExtractionResponse> {
+
+                val params = Gson().fromJson(
+                    GsonBuilder().create().toJson(request),
+                    JsonObject::class.java
+                )
+
+                return ApiResponse.create(
+                    apiSignZYService.fileExtraction(
+                        authorization,
+                        userID,
+                        params
                     )
                 )
             }

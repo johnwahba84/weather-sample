@@ -15,16 +15,18 @@ object AppConstants {
         companion object {
             const val URL = "https://preproduction.signzy.tech/api/v2/patrons/"
             const val URL_UPLOAD = "https://preproduction-persist.signzy.tech/api/files/"
-            const val API_ID = ""
-            const val API_PASSWORD = ""
+            const val API_ID = "adq_test"
+            const val API_PASSWORD = "Wi4jggLmvST86YXuCLyM"
         }
     }
 
-    @StringDef(ApiPath.AUTHENTICATE, ApiPath.UPLOAD)
+    @StringDef(ApiPath.AUTHENTICATE, ApiPath.UPLOAD, ApiPath.IMAGE_QUALITY, ApiPath.FILE_EXTRACTION)
     annotation class ApiPath {
         companion object {
             const val AUTHENTICATE = "login"
             const val UPLOAD = "upload"
+            const val IMAGE_QUALITY = "{userID}/imagequality"
+            const val FILE_EXTRACTION = "{userID}/foreignidentitiesextractions"
         }
     }
 

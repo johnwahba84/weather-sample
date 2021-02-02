@@ -3,6 +3,8 @@ package com.sample.openweathermap.data.remote
 import com.google.gson.JsonObject
 import com.sample.openweathermap.constants.AppConstants
 import com.sample.openweathermap.domain.model.AuthenticateResponse
+import com.sample.openweathermap.domain.model.FileExtractionResponse
+import com.sample.openweathermap.domain.model.ImageQualityResponse
 import com.sample.openweathermap.domain.model.UploadResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -18,10 +20,24 @@ interface ApiSignZYService {
     @Multipart
     @POST
     suspend fun upload(
-        @Url  url: String,
+        @Url url: String,
         @Header("Authorization") authorization: String?,
         @Part file: MultipartBody.Part?,
         @Part("ttl") ttl: RequestBody?,
         @Part("optimize") optimize: RequestBody?
     ): Response<UploadResponse>
+
+    @POST(AppConstants.ApiPath.IMAGE_QUALITY)
+    suspend fun imageQuality(
+        @Header("Authorization") authorization: String?,
+        @Path("userID") userID: String,
+        @Body body: JsonObject
+    ): Response<ImageQualityResponse>
+
+    @POST(AppConstants.ApiPath.FILE_EXTRACTION)
+    suspend fun fileExtraction(
+        @Header("Authorization") authorization: String?,
+        @Path("userID") userID: String,
+        @Body body: JsonObject
+    ): Response<FileExtractionResponse>
 }

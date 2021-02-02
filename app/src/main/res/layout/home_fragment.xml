@@ -19,16 +19,26 @@
         android:padding="@dimen/default_screen_padding">
 
         <Button
-            android:id="@+id/passport"
+            android:id="@+id/emiratesIdFront"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.onEmiratesIDClicked()}"
-            android:text="@string/main_emirates_id"
+            android:onClick="@{()->viewModel.onEmiratesIDFrontClicked()}"
+            android:text="@string/main_emirates_id_front"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/authenticate" />
 
         <Button
-            android:id="@+id/emiratesId"
+            android:id="@+id/emiratesIdBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.onEmiratesIDBackClicked()}"
+            android:text="@string/main_emirates_id_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/authenticate" />
+
+        <Button
+            android:id="@+id/passport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{()->viewModel.onPassportClicked()}"
@@ -48,14 +58,25 @@
 
 
         <ImageView
-            android:id="@+id/photoPreview"
+            android:id="@+id/photoPreviewOne"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/padding_margin_16"
             android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emiratesId"
+            app:layout_constraintTop_toBottomOf="@+id/passport"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/photoPreviewTwo"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/padding_margin_16"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoPreviewOne"
             tools:ignore="ContentDescription" />
 
         <ProgressBar

@@ -18,7 +18,6 @@ import com.sample.openweathermap.databinding.HomeFragmentBinding
 import com.sample.openweathermap.ui.base.BaseFragment
 import com.sample.openweathermap.utils.ImageUtils
 import java.io.File
-import java.util.*
 
 class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
@@ -63,6 +62,34 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                     .show()
             }
         })
+
+        injectedViewModel.imageQualityResponse.observe(this, Observer { result ->
+
+            injectedViewModel.showLoading.set(result?.status == Status.LOADING)
+
+            if (result?.status == Status.SUCCESS) {
+                injectedViewModel.processImageQualityResponse(result.data)
+            } else if (result?.status == Status.ERROR) {
+                AlertDialog.Builder(requireActivity())
+                    .setMessage(result.message)
+                    .setPositiveButton(R.string._ok, null)
+                    .show()
+            }
+        })
+
+        injectedViewModel.fileExtractionResponse.observe(this, Observer { result ->
+
+            injectedViewModel.showLoading.set(result?.status == Status.LOADING)
+
+            if (result?.status == Status.SUCCESS) {
+                injectedViewModel.processFileExtractionResponse(result.data)
+            } else if (result?.status == Status.ERROR) {
+                AlertDialog.Builder(requireActivity())
+                    .setMessage(result.message)
+                    .setPositiveButton(R.string._ok, null)
+                    .show()
+            }
+        })
     }
 
     override fun subscribeToViewLiveData() {
@@ -97,8 +124,17 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     private val takePictureRegistration =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
             if (isSuccess) {
-                viewDataBinding.photoPreview.setImageURI(imageUri)
+                viewDataBinding.photoPreviewOne.setImageURI(imageUri)
                 injectedViewModel.uploadApi(File(ImageUtils.currentPhotoPath))
+
+//                val bmp = BitmapFactory.decodeFile(ImageUtils.currentPhotoPath)
+//
+//                val convertedImage = File(Environment.getExternalStorageDirectory().toString() + "/convertedimg.png")
+//                val outStream = FileOutputStream(convertedImage)
+//
+//                bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream)
+//                outStream.flush()
+//                outStream.close()
             }
         }
 
