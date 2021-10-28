@@ -1,8 +1,8 @@
 package com.sample.openweathermap.data.remote
 
 import com.sample.openweathermap.constants.AppConstants
-import com.sample.openweathermap.domain.model.forecast.ForecastResponse
-import com.sample.openweathermap.domain.model.weather.WeatherResponse
+import com.sample.openweathermap.data.model.forecast.ForecastResponse
+import com.sample.openweathermap.data.model.weather.WeatherResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

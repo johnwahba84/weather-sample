@@ -1,6 +1,6 @@
 package com.sample.openweathermap.di.module.network
 
-import com.sample.openweathermap.data.repository.WeatherAppRepository
+import com.sample.openweathermap.domain.repository.WeatherAppRepository
 import com.sample.openweathermap.data.repository.WeatherAppRepositoryImp
 import dagger.Binds
 import dagger.Module

@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.openweathermap.databinding.ForecastItemBinding
-import com.sample.openweathermap.domain.model.forecast.ForecastResponse
+import com.sample.openweathermap.data.model.forecast.ForecastResponse
+import com.sample.openweathermap.domain.model.forecast.ForecastModel
 
-class ForecastAdapter(private val forecastList: List<ForecastResponse.Forecast>?) :
+class ForecastAdapter(private val forecastList: List<ForecastModel.Forecast>?) :
     RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -34,7 +35,7 @@ class ForecastAdapter(private val forecastList: List<ForecastResponse.Forecast>?
 
     class ForecastViewHolder(private val binding: ForecastItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ForecastResponse.Forecast?) {
+        fun bind(item: ForecastModel.Forecast?) {
             binding.item = item
             binding.executePendingBindings()
         }

@@ -85,7 +85,7 @@ dependencies {
     kapt deps.room.compiler
 
     testImplementation deps.junit
-    testImplementation deps.mock_web_server
+    testImplementation deps.okhttp_mock_web_server
     testImplementation deps.arch_core.testing
     testImplementation deps.mockito.core
 

@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.openweathermap.databinding.WeatherItemBinding
-import com.sample.openweathermap.domain.model.weather.WeatherResponse
+import com.sample.openweathermap.data.model.weather.WeatherResponse
+import com.sample.openweathermap.domain.model.weather.WeatherModel
 import com.sample.openweathermap.ui.weather.WeatherAdapter.WeatherViewHolder
 
-class WeatherAdapter(private val weatherList: List<WeatherResponse>?) :
+class WeatherAdapter(private val weatherList: List<WeatherModel>?) :
     RecyclerView.Adapter<WeatherViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -35,7 +36,7 @@ class WeatherAdapter(private val weatherList: List<WeatherResponse>?) :
 
     class WeatherViewHolder(private val binding: WeatherItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: WeatherResponse?) {
+        fun bind(item: WeatherModel?) {
             binding.item = item
             binding.executePendingBindings()
         }

@@ -7,7 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.sample.openweathermap.R
-import com.sample.openweathermap.domain.model.weather.WeatherResponse
+import com.sample.openweathermap.data.model.weather.WeatherResponse
+import com.sample.openweathermap.domain.model.weather.WeatherModel
 import com.sample.openweathermap.domain.usecase.GetWeatherByCityName
 import com.sample.openweathermap.ui.base.BaseViewModel
 import com.sample.openweathermap.utils.AbsentLiveData
@@ -22,23 +23,23 @@ class WeatherViewModel @Inject constructor(
 ) : BaseViewModel(context) {
 
     private var cityList = ArrayList<String>()
-    private var weatherResponseList = ArrayList<WeatherResponse>()
+    private var weatherResponseList = ArrayList<WeatherModel>()
 
     val citiesNames = ObservableField<String>()
     val citiesNamesError = ObservableField<String>()
 
     val showLoading = ObservableField<Boolean>()
 
-    var callAdapter = MutableLiveData<List<WeatherResponse>>()
+    var callAdapter = MutableLiveData<List<WeatherModel>>()
 
     var weatherRequest = MutableLiveData<String>()
-    var weatherResponse: LiveData<Resource<WeatherResponse>> = Transformations
+    var weatherResponse: LiveData<Resource<WeatherModel>> = Transformations
         .switchMap(weatherRequest) { weatherRequest ->
             if (null == weatherRequest)
                 AbsentLiveData.create()
             else
-                object : CoroutinesLiveDataHelper<WeatherResponse>(viewModelScope.coroutineContext){
-                    override suspend fun loadFromNetwork(): Flow<Resource<WeatherResponse>> {
+                object : CoroutinesLiveDataHelper<WeatherModel>(viewModelScope.coroutineContext){
+                    override suspend fun loadFromNetwork(): Flow<Resource<WeatherModel>> {
                         return getWeatherByCityName(weatherRequest)
                     }
                 }.asLiveData()
@@ -72,7 +73,7 @@ class WeatherViewModel @Inject constructor(
         return false
     }
 
-    fun processResponse(data: WeatherResponse?) {
+    fun processResponse(data: WeatherModel?) {
 
         data?.let { weatherResponseList.add(it) }
 

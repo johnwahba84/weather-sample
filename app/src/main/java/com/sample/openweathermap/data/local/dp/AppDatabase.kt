@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.sample.openweathermap.data.local.dp.dao.WeatherDao
-import com.sample.openweathermap.domain.model.forecast.ForecastResponse
+import com.sample.openweathermap.data.model.forecast.ForecastResponse
 
 @Database(
     entities = [ForecastResponse::class],

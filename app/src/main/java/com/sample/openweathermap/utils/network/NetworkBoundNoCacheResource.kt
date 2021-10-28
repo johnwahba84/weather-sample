@@ -7,6 +7,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+
 /**
  * A generic class that can provide a resource backed by network.
  */
@@ -16,19 +17,23 @@ abstract class NetworkBoundNoCacheResource<ResultType> {
 
     fun asFlow(): Flow<Resource<ResultType>> = flow {
 
-        emit(Resource.loading(null))
+        try {
+            emit(Resource.loading(null))
 
-        when (val response = fetchFromNetwork()) {
-            is ApiSuccessResponse -> {
-                emit(Resource.success(response.body))
+            when (val response = fetchFromNetwork()) {
+                is ApiSuccessResponse -> {
+                    emit(Resource.success(response.body))
+                }
+                is ApiEmptyResponse -> {
+                    emit(Resource.success(null))
+                }
+                is ApiErrorResponse -> {
+                    onFetchFailed()
+                    emit(Resource.error(response.errorMessage, null))
+                }
             }
-            is ApiEmptyResponse -> {
-                emit(Resource.success(null))
-            }
-            is ApiErrorResponse -> {
-                onFetchFailed()
-                emit(Resource.error(response.errorMessage, null))
-            }
+        } catch (e: Exception) {
+            emit(Resource.error("Something went wrong", null))
         }
     }
 

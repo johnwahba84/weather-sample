@@ -3,7 +3,7 @@ package com.sample.openweathermap.data.local.dp
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sample.openweathermap.domain.model.forecast.ForecastResponse.Forecast
+import com.sample.openweathermap.data.model.forecast.ForecastResponse.Forecast
 
 class MyCustomTypeConverter {
 

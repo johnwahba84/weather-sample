@@ -6,8 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
-import com.sample.openweathermap.domain.model.forecast.ForecastRequest
-import com.sample.openweathermap.domain.model.forecast.ForecastResponse
+import com.sample.openweathermap.data.model.forecast.ForecastRequest
+import com.sample.openweathermap.data.model.forecast.ForecastResponse
+import com.sample.openweathermap.domain.model.forecast.ForecastModel
 import com.sample.openweathermap.domain.usecase.GetForecastByLocation
 import com.sample.openweathermap.ui.base.BaseViewModel
 import com.sample.openweathermap.utils.AbsentLiveData
@@ -23,23 +24,23 @@ class ForecastViewModel @Inject constructor(
 
     val showLoading = ObservableField<Boolean>()
 
-    var callAdapter = MutableLiveData<List<ForecastResponse.Forecast>>()
+    var callAdapter = MutableLiveData<List<ForecastModel.Forecast>>()
 
     var forecastRequest = MutableLiveData<ForecastRequest>()
-    var forecastResponse: LiveData<Resource<ForecastResponse>> = Transformations
+    var forecastResponse: LiveData<Resource<ForecastModel>> = Transformations
         .switchMap(forecastRequest) { forecastRequest ->
             if (null == forecastRequest)
                 AbsentLiveData.create()
             else
                 object :
-                    CoroutinesLiveDataHelper<ForecastResponse>(viewModelScope.coroutineContext) {
-                    override suspend fun loadFromNetwork(): Flow<Resource<ForecastResponse>> {
+                    CoroutinesLiveDataHelper<ForecastModel>(viewModelScope.coroutineContext) {
+                    override suspend fun loadFromNetwork(): Flow<Resource<ForecastModel>> {
                         return getForecastByLocation(forecastRequest)
                     }
                 }.asLiveData()
         }
 
-    fun processResponse(data: ForecastResponse?) {
+    fun processResponse(data: ForecastModel?) {
         callAdapter.value = data?.list
     }
 

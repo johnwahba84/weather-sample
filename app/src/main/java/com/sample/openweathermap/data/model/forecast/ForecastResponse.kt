@@ -1,4 +1,4 @@
-package com.sample.openweathermap.domain.model.forecast
+package com.sample.openweathermap.data.model.forecast
 
 
 import androidx.room.Embedded
