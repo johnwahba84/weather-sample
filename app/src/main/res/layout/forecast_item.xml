@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.sample.openweathermap.model.forecast.ForecastResponse.Forecast" />
+            type="com.sample.openweathermap.domain.model.forecast.ForecastModel.Forecast" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,7 +79,7 @@
             android:id="@+id/weather_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item.weather.get(0).description}"
+            android:text="@{item.weather.description}"
             app:layout_constraintStart_toEndOf="@+id/weather_title"
             app:layout_constraintTop_toBottomOf="@+id/max_temp_title" />
 

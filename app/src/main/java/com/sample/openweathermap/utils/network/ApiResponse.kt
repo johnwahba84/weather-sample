@@ -1,4 +1,4 @@
-package com.sample.openweathermap.data.remote
+package com.sample.openweathermap.utils.network
 
 import retrofit2.Response
 import timber.log.Timber

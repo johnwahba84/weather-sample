@@ -1,4 +1,4 @@
-package com.sample.openweathermap.di.module
+package com.sample.openweathermap.di.module.network
 
 import com.sample.openweathermap.data.remote.ApiWeatherService
 import dagger.Module

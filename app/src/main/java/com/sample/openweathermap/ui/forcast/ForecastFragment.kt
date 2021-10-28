@@ -44,7 +44,7 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         getLastLocation()
     }
 
@@ -66,7 +66,7 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
             if (result?.status == Status.SUCCESS) {
                 injectedViewModel.processResponse(result.data)
             } else if (result?.status == Status.ERROR) {
-                AlertDialog.Builder(activity!!)
+                AlertDialog.Builder(requireActivity())
                     .setMessage(result.message)
                     .setPositiveButton(R.string._ok, null)
                     .show()
@@ -86,7 +86,7 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
                     }
                 }
             } else {
-                AlertDialog.Builder(activity!!)
+                AlertDialog.Builder(requireActivity())
                     .setMessage(getString(R.string._location_permission))
                     .setPositiveButton(R.string._ok
                     ) { _, _ ->
@@ -107,7 +107,7 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
         mLocationRequest.interval = 0
         mLocationRequest.fastestInterval = 0
         mLocationRequest.numUpdates = 1
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         mFusedLocationClient?.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
@@ -124,18 +124,18 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
 
     private fun checkPermissions(): Boolean {
         return ActivityCompat.checkSelfPermission(
-            activity!!,
+            requireActivity(),
             Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(
-                    activity!!,
+                    requireActivity(),
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
-            activity!!,
+            requireActivity(),
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION

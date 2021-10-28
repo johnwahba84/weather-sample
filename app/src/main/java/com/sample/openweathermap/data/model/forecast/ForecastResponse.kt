@@ -1,11 +1,17 @@
-package com.sample.openweathermap.model.forecast
+package com.sample.openweathermap.data.model.forecast
 
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "forecast_info")
 data class ForecastResponse(
     @SerializedName("city")
+    @Embedded(prefix = "city_")
     val city: City,
+    @PrimaryKey
     @SerializedName("cnt")
     val cnt: Int,
     @SerializedName("cod")
@@ -17,6 +23,7 @@ data class ForecastResponse(
 ) {
     data class City(
         @SerializedName("coord")
+        @Embedded(prefix = "_coord")
         val coord: Coord,
         @SerializedName("country")
         val country: String,
@@ -42,8 +49,6 @@ data class ForecastResponse(
         val dtTxt: String,
         @SerializedName("main")
         val main: Main,
-        @SerializedName("rain")
-        val rain: Rain,
         @SerializedName("sys")
         val sys: Sys,
         @SerializedName("weather")
@@ -71,9 +76,6 @@ data class ForecastResponse(
             val tempMax: Double,
             @SerializedName("temp_min")
             val tempMin: Double
-        )
-
-        class Rain(
         )
 
         data class Sys(

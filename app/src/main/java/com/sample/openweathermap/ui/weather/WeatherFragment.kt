@@ -37,7 +37,7 @@ class WeatherFragment : BaseFragment<WeatherFragmentBinding, WeatherViewModel>()
             if (result?.status == Status.SUCCESS) {
                 injectedViewModel.processResponse(result.data)
             } else if (result?.status == Status.ERROR) {
-                AlertDialog.Builder(activity!!)
+                AlertDialog.Builder(requireActivity())
                     .setMessage(result.message)
                     .setPositiveButton(R.string._ok, null)
                     .show()
