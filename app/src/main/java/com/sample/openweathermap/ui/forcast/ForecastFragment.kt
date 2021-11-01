@@ -79,23 +79,6 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
     private fun getLastLocation() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
-                if (ActivityCompat.checkSelfPermission(
-                        requireActivity(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        requireActivity(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return
-                }
                 mFusedLocationClient?.lastLocation?.addOnCompleteListener { task ->
                     val location = task.result
                     if (location == null) {
@@ -131,32 +114,17 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
         mLocationRequest.fastestInterval = 0
         mLocationRequest.numUpdates = 1
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
+        if(checkPermissions()) {
+            mFusedLocationClient?.requestLocationUpdates(
+                mLocationRequest, mLocationCallback,
+                Looper.myLooper()
+            )
         }
-        mFusedLocationClient?.requestLocationUpdates(
-            mLocationRequest, mLocationCallback,
-            Looper.myLooper()
-        )
     }
 
     private fun isLocationEnabled(): Boolean {
         val locationManager =
-            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+            requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager?
         return locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
