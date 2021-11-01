@@ -11,7 +11,6 @@ import android.os.Looper
 import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Observer
 import com.android.example.github.vo.Status
 import com.google.android.gms.location.*
 import com.sample.openweathermap.BR
@@ -23,7 +22,7 @@ import com.sample.openweathermap.ui.base.BaseFragment
 
 class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel>() {
 
-    var mFusedLocationClient: FusedLocationProviderClient? = null
+    private var mFusedLocationClient: FusedLocationProviderClient? = null
 
     override val bindingVariable: Int
         get() = BR.viewModel
@@ -37,7 +36,10 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
     private val mLocationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val mLastLocation: Location = locationResult.lastLocation
-            injectedViewModel.callForecastApi(mLastLocation.latitude.toString(), mLastLocation.longitude.toString())
+            injectedViewModel.callForecastApi(
+                mLastLocation.latitude.toString(),
+                mLastLocation.longitude.toString()
+            )
         }
     }
 
@@ -51,7 +53,7 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
     override fun subscribeToViewLiveData() {
         super.subscribeToViewLiveData()
 
-        injectedViewModel.callAdapter.observe(viewLifecycleOwner, Observer {
+        injectedViewModel.callAdapter.observe(viewLifecycleOwner, {
             viewDataBinding.recyclerView.adapter = ForecastAdapter(it)
         })
     }
@@ -59,7 +61,7 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
     override fun subscribeToNetworkLiveData() {
         super.subscribeToNetworkLiveData()
 
-        injectedViewModel.forecastResponse.observe(this, Observer { result ->
+        injectedViewModel.forecastResponse.observe(this, { result ->
 
             injectedViewModel.showLoading.set(result?.status == Status.LOADING)
 
@@ -77,18 +79,39 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
     private fun getLastLocation() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
+                if (ActivityCompat.checkSelfPermission(
+                        requireActivity(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        requireActivity(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return
+                }
                 mFusedLocationClient?.lastLocation?.addOnCompleteListener { task ->
                     val location = task.result
                     if (location == null) {
                         requestNewLocationData()
                     } else {
-                        injectedViewModel.callForecastApi(location.latitude.toString(), location.longitude.toString())
+                        injectedViewModel.callForecastApi(
+                            location.latitude.toString(),
+                            location.longitude.toString()
+                        )
                     }
                 }
             } else {
                 AlertDialog.Builder(requireActivity())
                     .setMessage(getString(R.string._location_permission))
-                    .setPositiveButton(R.string._ok
+                    .setPositiveButton(
+                        R.string._ok
                     ) { _, _ ->
                         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                         startActivity(intent)
@@ -102,12 +125,29 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
 
 
     private fun requestNewLocationData() {
-        val mLocationRequest = LocationRequest()
+        val mLocationRequest = LocationRequest.create()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest.interval = 0
         mLocationRequest.fastestInterval = 0
         mLocationRequest.numUpdates = 1
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
         mFusedLocationClient?.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()

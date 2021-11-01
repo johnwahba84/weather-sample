@@ -22,7 +22,7 @@ class WeatherFragment : BaseFragment<WeatherFragmentBinding, WeatherViewModel>()
     override fun subscribeToViewLiveData() {
         super.subscribeToViewLiveData()
 
-        injectedViewModel.callAdapter.observe(viewLifecycleOwner, Observer {
+        injectedViewModel.callAdapter.observe(viewLifecycleOwner, {
             viewDataBinding.recyclerView.adapter = WeatherAdapter(it)
         })
     }
@@ -30,7 +30,7 @@ class WeatherFragment : BaseFragment<WeatherFragmentBinding, WeatherViewModel>()
     override fun subscribeToNetworkLiveData() {
         super.subscribeToNetworkLiveData()
 
-        injectedViewModel.weatherResponse.observe(this, Observer { result ->
+        injectedViewModel.weatherResponse.observe(this, { result ->
 
             injectedViewModel.showLoading.set(result?.status == Status.LOADING)
 
