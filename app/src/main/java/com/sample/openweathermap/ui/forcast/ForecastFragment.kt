@@ -51,7 +51,7 @@ class ForecastFragment : BaseFragment<ForecastFragmentBinding, ForecastViewModel
     override fun subscribeToViewLiveData() {
         super.subscribeToViewLiveData()
 
-        injectedViewModel.callAdapter.observe(this, Observer {
+        injectedViewModel.callAdapter.observe(viewLifecycleOwner, Observer {
             viewDataBinding.recyclerView.adapter = ForecastAdapter(it)
         })
     }
